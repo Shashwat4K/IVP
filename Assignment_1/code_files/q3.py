@@ -5,6 +5,9 @@ import cv2
 import math
 import time
 
+# TODO: The Functions are incomplete and log_transformation function
+#       has to be updated, because it's producing error (Unsupported datatype)     
+
 spine_image = cv2.imread(sys.argv[1], 0)
 print(spine_image[500:600, 500:600])
 cv2.imshow('Original Spine Image', spine_image[500:600, 500:600])
