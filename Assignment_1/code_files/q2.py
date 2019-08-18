@@ -15,8 +15,9 @@ cv2.imshow('Second Image', image2)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-image2[image2 >= 240] = 0
+
 image2 = cv2.resize(image2, (image1.shape[1], image1.shape[0]), interpolation=cv2.INTER_CUBIC)
+image2[image2 >= 240] = 0
 
 image1[image2 != 0] = 0
 result = image1 + image2
