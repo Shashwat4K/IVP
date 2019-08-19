@@ -49,7 +49,7 @@ def histogram_equalization_without_opencv(image):
     cumulative_distribution_masked = (cumulative_distribution_masked - cumulative_distribution_masked.min())*255/(cumulative_distribution_masked.max()-cumulative_distribution_masked.min())
     cumulative_distribution = np.ma.filled(cumulative_distribution_masked,0).astype('uint8')
     equalized_image = cumulative_distribution[image]
-
+    
     # Plotting new histogram amd new cumulative distribution
     new_histogram, _ = np.histogram(equalized_image.flatten(), 256, range=(0, 256))
     plt.plot(cumulative_distribution, color='b')
