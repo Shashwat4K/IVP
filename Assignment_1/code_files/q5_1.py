@@ -34,7 +34,7 @@ def histogram_equalization_without_opencv(image):
     # Now the cumulative frequency is calculated
     cumulative_sum = np.array([sum(histogram[:i+1]) for i in range(len(histogram))])
                                                              #                       k                    
-    transformation_function = np.uint8(255 * cumulative_sum) # sk = T(rk) => (L-1)(Sigma nj) -> cumulative_sum 
+    transformation_function = np.uint8(255 * cumulative_sum) # sk = T(rk) => (L-1)(Sigma nj) -> 255 * cumulative_sum 
                                                              #                      j=1
     transformed_image = np.zeros(shape=image.shape) # the tranformed image is stored in Y
 
