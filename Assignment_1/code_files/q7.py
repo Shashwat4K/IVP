@@ -13,7 +13,7 @@ def k_dominant_intensities(image, k=1):
 info = k_dominant_intensities(image, int(argv[2]))
 
 # dominant_intensity = info[0][1]
-dominant_intensity = info[len(info)][1]
+dominant_intensity = info[len(info)-1][1]
 
 k_top_intensities = np.array([j for (i,j) in info])
 
