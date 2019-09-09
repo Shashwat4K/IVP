@@ -38,23 +38,13 @@ def apply_filter(image, _filter, filter_name):
         for y in range(initial_width):
             correlation_value = np.dot(image[x:x+filter_size, y:y+filter_size].flatten(), _filter.flatten())
             image_after_filtering[x][y] = correlation_value
-    #image_after_filtering = round_off(image_after_filtering)
-    #plt.imshow(image_after_filtering, cmap='gray')
-    #plt.title(filter_name)
-    #plt.show()
-    return image_after_filtering
+    image_after_filtering = round_off(image_after_filtering)
+    plt.imshow(image_after_filtering, cmap='gray')
+    plt.title(filter_name)
+    plt.show()
     
 
-#apply_filter(image, filters['prewitt_h'], 'prewitt_h')  
-#apply_filter(image, filters['prewitt_v'], 'prewitt_v')
-filtered = apply_filter(image, filters['laplacian'], 'laplacian')
-#apply_filter(image, filters['laplacian_d'], 'laplacian_d')
-
-sharp_image = image - filtered 
-
-fig = plt.figure()
-plt.subplot(1, 2, 1)
-plt.imshow(sharp_image, cmap='gray')
-plt.subplot(1,2,2)
-plt.imshow(image, cmap='gray')
-plt.show()
+apply_filter(image, filters['prewitt_h'], 'prewitt_h')  
+apply_filter(image, filters['prewitt_v'], 'prewitt_v')
+apply_filter(image, filters['laplacian'], 'laplacian')
+apply_filter(image, filters['laplacian_d'], 'laplacian_d')
