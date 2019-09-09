@@ -4,6 +4,8 @@ import numpy as np
 
 image = cv2.imread('../input_images/barbara.jpg', 0)
 
+# TODO: manage Roberts' filters properly
+
 filters = {
     'sobel_h': 0.125*np.array([[-1,0,1],[-2,0,2],[-1,0,1]]),
     'sobel_v': 0.125*np.array([[1,2,1],[0,0,0],[-1,-2,-1]]),
