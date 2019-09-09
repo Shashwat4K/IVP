@@ -15,7 +15,7 @@ def histogram_equalization_with_opencv(image):
     axarr[0].imshow(image, cmap='gray')
     axarr[0].set_title('Original image')
     axarr[1].imshow(equalized_image, cmap='gray')
-    axarr[1].set_title('Equalized image')
+    axarr[1].set_title('Equalized image (with opencv)')
     plt.show()
 
 def histogram_equalization_without_opencv(image):
@@ -54,7 +54,7 @@ def histogram_equalization_without_opencv(image):
     axarr[0].imshow(image, cmap='gray')
     axarr[0].set_title('Original image')
     axarr[1].imshow(transformed_image, cmap='gray')
-    axarr[1].set_title('Equalized image')
+    axarr[1].set_title('Equalized image (without opencv)')
     plt.show()
 
 histogram_equalization_with_opencv(image)

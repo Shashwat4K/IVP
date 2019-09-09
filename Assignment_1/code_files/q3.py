@@ -18,7 +18,7 @@ def log_transformation(image):
             transformed_image[i][j] = c * math.log(image[i,j] + 1.)
     '''
     c = np.ceil(255 / (np.log(1 + np.max(image))))
-    log_image = c * (np.log(image + 1))
+    log_image = c * (np.log(image + 1)) # s = c * log(1 + r)
     log_image = np.array(log_image, dtype=np.uint8)
     # print('MIN {} MAX {}'.format(transformed_image.min(), transformed_image.max()))        
     # print(log_image[500:600, 500:600], '\nMAX{} MIN{}'.format(log_image.max(), log_image.min()))
@@ -32,7 +32,7 @@ def log_transformation(image):
     plt.show()
     
 def power_transformation(image, c, gamma):
-    spine_gamma = np.array(255 * (image/255)**gamma, dtype=np.uint8)
+    spine_gamma = np.array(255 * (image/255)**gamma, dtype=np.uint8) # s = c * r^gamma
     
     figure = plt.figure()
 

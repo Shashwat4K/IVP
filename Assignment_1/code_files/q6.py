@@ -20,4 +20,10 @@ for i in range(4):
     ax[i, 0].imshow(binarize(image, thresholds[i][0]), cmap='gray', vmin=0, vmax=1)
     ax[i, 1].imshow(binarize(image, thresholds[i][1]), cmap='gray', vmin=0, vmax=1)
 
-plt.show()    
+plt.show() 
+
+mean_threshold = np.mean(image)
+
+plt.imshow(binarize(image, mean_threshold), cmap='gray', vmin=0, vmax=1)
+plt.title('For mean threshold value, the binary image is')
+plt.show()
