@@ -4,15 +4,15 @@ import numpy as np
 
 image = cv2.imread('../input_images/barbara.jpg', 0)
 
-# TODO: manage Roberts' filters properly
+# TODO: Verify the results
 
 filters = {
     'sobel_h': 0.125*np.array([[-1,0,1],[-2,0,2],[-1,0,1]]),
     'sobel_v': 0.125*np.array([[1,2,1],[0,0,0],[-1,-2,-1]]),
     'prewitt_h': np.array([[-1,0,1],[-1,0,1],[-1,0,1]]),
     'prewitt_v': np.array([[1,1,1],[0,0,0],[-1,-1,-1]]),
-    'roberts_h': np.array([[0,1],[-1,0]]),
-    'roberts_v': np.array([[1,0],[0,-1]]),
+    'roberts_h': np.array([[0,1,0],[-1,0,0],[0,0,0]]),
+    'roberts_v': np.array([[1,0,0],[0,-1,0],[0,0,0]]),
     'laplacian': np.array([[0,-1,0],[-1,4,-1],[0,-1,0]]),
     'laplacian_d': np.array([[-1,-1,-1],[-1,8,-1],[-1,-1,-1]])
 }
@@ -31,7 +31,7 @@ def round_off(image):
     return np.around(image)
 
 def apply_filter(image, _filter, filter_name):
-    image_after_filtering = np.zeros(shape=image.shape, dtype=np.uint8)
+    image_after_filtering = np.zeros(shape=image.shape)
     filter_size = len(_filter)
     initial_width, initial_height = image.shape
     image = padding(image, filter_size)
@@ -41,12 +41,14 @@ def apply_filter(image, _filter, filter_name):
             correlation_value = np.dot(image[x:x+filter_size, y:y+filter_size].flatten(), _filter.flatten())
             image_after_filtering[x][y] = correlation_value
     image_after_filtering = round_off(image_after_filtering)
+    plt.subplot(1,2,1)
     plt.imshow(image_after_filtering, cmap='gray')
-    plt.title(filter_name)
+    plt.title('Filter applied ' + filter_name)
+    plt.subplot(1,2,2)
+    plt.imshow(image, cmap='gray')
+    plt.title('Original image')
     plt.show()
     
-
-apply_filter(image, filters['prewitt_h'], 'prewitt_h')  
-apply_filter(image, filters['prewitt_v'], 'prewitt_v')
-apply_filter(image, filters['laplacian'], 'laplacian')
-apply_filter(image, filters['laplacian_d'], 'laplacian_d')
+figure = plt.figure()
+for (key, value) in filters.items():
+    apply_filter(image, value, key)
