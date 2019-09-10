@@ -5,9 +5,6 @@ from q2 import padding
 
 # TODO: Image quality is not as expected
 
-image = cv2.imread('../input_images/skeleton_orig.tif', 0)
-height, width = image.shape
-
 filters = {
     'laplacian' : np.array([[0,-1,0],[-1,4,1],[0,-1,0]]),
     'sobel_h' : 0.125*np.array([[-1,0,1],[-2,0,2],[-1,0,1]]),
@@ -41,6 +38,10 @@ def power_law(image, gamma):
     return s
 
 if __name__ == '__main__':
+
+    image = cv2.imread('../input_images/skeleton_orig.tif', 0)
+    height, width = image.shape
+    
     # Step 1: APPLY LAPLACIAN FILTER
     print("Step 1: Applying Laplacian filter")
     laplacian_filtered_image = apply_filter(image, filters['laplacian'])
