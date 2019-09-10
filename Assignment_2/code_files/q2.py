@@ -1,8 +1,9 @@
 import cv2
 import matplotlib.pyplot as plt        
 import numpy as np
+from sys import argv
 
-image = cv2.imread('../input_images/barbara.jpg', 0)
+image = cv2.imread(argv[1], 0)
 
 # TODO: Verify the results
 
@@ -18,12 +19,12 @@ filters = {
 }
 
 def padding(image, filter_size):
-    width, height = image.shape 
+    height, width = image.shape 
     padding_thickness = filter_size//2
     # vertically and horizontally stack 0 arrays
-    hzeros = np.zeros(shape=(width, padding_thickness))
+    hzeros = np.zeros(shape=(height, padding_thickness))
     image = np.hstack((hzeros, image, hzeros))
-    vzeros = np.zeros(shape=(padding_thickness, height+2*padding_thickness))
+    vzeros = np.zeros(shape=(padding_thickness, width+2*padding_thickness))
     image = np.vstack((vzeros, image, vzeros))
     return image
 
@@ -33,11 +34,11 @@ def round_off(image):
 def apply_filter(image, _filter, filter_name):
     image_after_filtering = np.zeros(shape=image.shape)
     filter_size = len(_filter)
-    initial_width, initial_height = image.shape
+    initial_height, initial_width = image.shape
     image = padding(image, filter_size)
-    width, height = image.shape
-    for x in range(initial_height):
-        for y in range(initial_width):
+    height, width = image.shape
+    for x in range(height-filter_size):
+        for y in range(width-filter_size):
             correlation_value = np.dot(image[x:x+filter_size, y:y+filter_size].flatten(), _filter.flatten())
             image_after_filtering[x][y] = correlation_value
     image_after_filtering = round_off(image_after_filtering)
