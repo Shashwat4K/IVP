@@ -45,10 +45,10 @@ print("Step 1: Applying Laplacian filter")
 laplacian_filtered_image = apply_filter(image, filters['Laplacian'])
 # Step 2: SUBTRACT THE FILTERED IMAGE FROM ORIGINAL IMAGE
 print("Step 2: Image sharpening")
-sharpened_image = image - laplacian_filtered_image
+sharpened_image = np.absolute(image - laplacian_filtered_image)
 # Step 3: APPLY SOBEL FILTERS (VERTICAL AND HORIZONTAL) AND ADD THEM
 print("Step 3: Applying Sobel filters")
-sobel_filtered_image = apply_filter(sharpened_image, filters['Sobel_h']) + apply_filter(image, filters['Sobel_v'])
+sobel_filtered_image = np.absolute(apply_filter(sharpened_image, filters['Sobel_h']) + apply_filter(image, filters['Sobel_v']))
 # Step 4: APPLY AVERAGING FILTER TO SMOOTH THE IMAGE
 print("Step 4: Applying Averaging filter")
 smooth_image = apply_filter(sobel_filtered_image, filters['Averaging'])
@@ -58,9 +58,11 @@ product_image = laplacian_filtered_image * smooth_image
 # Step 6: ADD THE PRODUCT IMAGE TO ORIGINAL IMAGE
 print("Step 6: Sum")
 sum_image = product_image + image 
+'''
 # Step 7: APPLY POWER LAW TRANSFORM WITH GAMMA < 1, e.g. 0.5
 print('Step 7: Power law transform (0.5)')
 transformed_image = power_law(sum_image, 0.5)
+'''
 
 figure = plt.figure()
 
