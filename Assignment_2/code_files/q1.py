@@ -25,6 +25,19 @@ def template_matching(image, template):
     plt.imshow(template_matching_map, cmap='gray')
     plt.title('Template matching map')
     plt.show()
+    return template_matching_map
+
+def create_bounding_box(image, ind, template_shape):
+    height, width = template_shape
+    X, Y = ind
+    x, y, w, h = (X-(width//2), Y-(height//2), width, height)
+    image[x, y:y+w] = 255
+    image[x+h, y:y+w] = 255
+    image[x:x+h, y] = 255
+    image[x:x+h, y+w] = 255
+    plt.imshow(image, cmap='gray')
+    plt.title('Possible presence rectangle')
+    plt.show()
 
 if __name__ == '__main__':
     image = cv2.imread(argv[1], 0)
@@ -32,4 +45,7 @@ if __name__ == '__main__':
 
     figure = plt.figure()
 
-    template_matching(image, template)    
+    template_matching_map = template_matching(image, template)
+    # index of maximum intensity value
+    ind = np.unravel_index(np.argmax(template_matching_map, axis=None), template_matching_map.shape)
+    create_bounding_box(image, ind, template.shape)
