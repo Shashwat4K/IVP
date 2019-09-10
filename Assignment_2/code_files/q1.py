@@ -5,11 +5,6 @@ from sys import argv
 from q2 import padding
 from q3 import dot_product
 
-image = cv2.imread(argv[1], 0)
-template = cv2.imread(argv[2], 0)
-
-figure = plt.figure()
-
 def template_matching(image, template):
     template_height, template_width = template.shape
     template_matching_map = np.zeros(shape=image.shape)
@@ -31,4 +26,10 @@ def template_matching(image, template):
     plt.title('Template matching map')
     plt.show()
 
-template_matching(image, template)    
+if __name__ == '__main__':
+    image = cv2.imread(argv[1], 0)
+    template = cv2.imread(argv[2], 0)
+
+    figure = plt.figure()
+
+    template_matching(image, template)    
