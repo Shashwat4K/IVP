@@ -33,6 +33,7 @@ def round_off(image):
     return np.around(image)
 
 def apply_filter(image, _filter, filter_name):
+    image_fitered_by_cv2 = cv2.filter2D(image, -1, _filter)
     image_after_filtering = np.zeros(shape=image.shape)
     filter_size = len(_filter)
     filter_height, filter_width = _filter.shape 
@@ -44,11 +45,14 @@ def apply_filter(image, _filter, filter_name):
             correlation_value = np.dot(image[x:x+filter_height, y:y+filter_width].flatten(), _filter.flatten())
             image_after_filtering[x][y] = correlation_value
     image_after_filtering = round_off(image_after_filtering)
-    # image_after_filtering = np.absolute(image_after_filtering)
-    plt.subplot(1,2,1)
+    #image_after_filtering = np.absolute(image_after_filtering)
+    plt.subplot(1,3,1)
     plt.imshow(image_after_filtering, cmap='gray')
     plt.title('Filter applied ' + filter_name)
-    plt.subplot(1,2,2)
+    plt.subplot(1,3,2)
+    plt.imshow(image_fitered_by_cv2, cmap='gray')
+    plt.title('CV2 filtered image')
+    plt.subplot(1,3,3)
     plt.imshow(image, cmap='gray')
     plt.title('Original image')
     plt.show()
