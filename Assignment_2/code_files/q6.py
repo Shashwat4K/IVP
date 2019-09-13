@@ -62,7 +62,13 @@ if __name__ == '__main__':
 
 
     f = plt.figure()
-
+    plt.subplot(1,3,1)
+    plt.imshow(original_image, cmap='gray')
+    plt.title('Original Image')
+    plt.subplot(1,3,2)
+    plt.imshow(noisy_image, cmap='gray')
+    plt.title('Noisy image')
+    plt.subplot(1,3,3)
     plt.imshow(best_image, cmap='gray')
     plt.title('Best image')
     plt.show()
