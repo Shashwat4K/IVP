@@ -59,8 +59,8 @@ if __name__ == '__main__':
     print('Best filter for half 1 = {} and half 2 ={}'.format(best_of_half_1, best_of_half_2))
     best_image = np.hstack(((average_filtered_image_half_1 if best_of_half_1=='mean' else median_filtered_image_half_1),\
                 (average_filtered_image_half_2 if best_of_half_2=='mean' else median_filtered_image_half_2)))
-
-
+    error_image = original_image - best_image
+    print('MSE between filtered and original image = {}'.format(np.mean((best_image - original_image)**2)))
     f = plt.figure()
     plt.subplot(1,3,1)
     plt.imshow(original_image, cmap='gray')
@@ -73,3 +73,14 @@ if __name__ == '__main__':
     plt.title('Best image')
     plt.show()
 
+    f = plt.figure()
+    plt.subplot(1,3,1)
+    plt.imshow(original_image, cmap='gray')
+    plt.title('Original Image')
+    plt.subplot(1,3,2)
+    plt.imshow(best_image, cmap='gray')
+    plt.title('Best image')
+    plt.subplot(1,3,3)
+    plt.imshow(error_image, cmap='gray')
+    plt.title('Error (Difference) image')
+    plt.show()
