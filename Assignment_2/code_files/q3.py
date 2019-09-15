@@ -2,7 +2,7 @@ import cv2
 import numpy as np 
 import matplotlib.pyplot as plt 
 from q2 import padding
-
+from sys import argv
 # TODO: Image quality is not as expected
 
 filters = {
@@ -39,7 +39,7 @@ def power_law(image, gamma):
 
 if __name__ == '__main__':
 
-    image = cv2.imread('../input_images/skeleton_orig.tif', 0)
+    image = cv2.imread(argv[1], 0)
     height, width = image.shape
     
     # Step 1: APPLY LAPLACIAN FILTER
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     print("Step 6: Sum")
     sum_image = product_image + image
     # Step 7: APPLY POWER LAW TRANSFORM WITH GAMMA < 1, e.g. 0.5
-    print('Step 7: Power law transform (0.5)')
+    print('Step 7: Power law transform (0.28)')
     transformed_image = power_law(sum_image, 0.28)
     transformed_image = np.nan_to_num(transformed_image, 0.)
     figure = plt.figure()
@@ -72,4 +72,6 @@ if __name__ == '__main__':
     plt.subplot(1,2,2)
     plt.imshow(transformed_image, cmap='gray')
     plt.title('Transformed image')
+    plt.show()
+    plt.imshow(laplacian_filtered_image, cmap='gray')
     plt.show()
